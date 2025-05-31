@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ifled - Perfumes Importados Exclusivos</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- tipo de letra TT Ramillas -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Mi header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <!--Mi logo-->
+                <div class="logo">
+                    <a href="#home">
+                        <img src="Imagenes/6e275937-206c-43cb-ab54-bc1428ee8607.png" alt="Ifled" class="logo-img">
+                    </a>
+                </div>
+                
+                <nav class="nav">
+                    <a href="#home" class="nav-link">Inicio</a>
+                    <a href="#productos" class="nav-link">Productos</a>
+                    <a href="#contacto" class="nav-link">Contacto</a>
+                </nav>
+                
+                <!-- Carrito -->
+                <div class="cart-container">
+                    <button class="cart-btn" onclick="toggleCart()">
+                        <span class="cart-icon"><img src="Imagenes/shopping-cart.png" alt="Carrito"></span>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Carrito desplegable -->
+    <div class="cart-dropdown" id="cartDropdown">
+        <div class="cart-header">
+            <h3>Carrito de Compras</h3>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-cart">Tu carrito está vacío</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total" id="cartTotal">Total: $0</div>
+            <button class="btn-secondary" onclick="clearCart()">Vaciar Carrito</button>
+            <button class="btn-primary" onclick="goToCheckout()">Pagar</button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <!--Mi imagen de fondo con el proposito de agrandar mi pagina-->
+         <img src="Imagenes/Imagen_fondo.png" alt="Fondo Hero" class="hero-bg">
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">Perfumes Importados Exclusivos</h1>
+            <p class="hero-subtitle">Descubre fragancias únicas que definen tu personalidad</p>
+            <button class="btn-primary" onclick="scrollToProducts()">Explorar Colección</button>
+        </div>
+    </section>
+
+    <!-- Productos Section -->
+    <section class="products-section" id="productos">
+        <div class="container">
+            <h2 class="section-title">Nuestra Colección</h2>
+
+            <!-- Filtros -->
+            <div class="filters">
+                <button class="filter-btn active" data-filter="todos">Todos</button>
+                <button class="filter-btn" data-filter="Hombre">Hombre</button>
+                <button class="filter-btn" data-filter="Mujer">Mujer</button>
+                <button class="filter-btn" data-filter="Unisex">Unisex</button>
+            </div>
+
+            <!-- Grid de productos -->
+            <div class="products-grid" id="productsGrid">
+                <!-- Los productos se cargan dinámicamente desde productos.json -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section para dar un resumensito de la marca -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <h2>Elegancia en Cada Fragancia</h2>
+                <p>En Ifled, seleccionamos cuidadosamente cada perfume para ofrecerte las fragancias más exclusivas del mundo. Nuestra pasión por la perfumería nos lleva a buscar las mejores casas de fragancias internacionales.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Section -->
+    <section class="contact-section" id="contacto">
+        <div class="container">
+            <h2 class="section-title">Contacto</h2>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" placeholder="Nombre completo" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" placeholder="Mensaje" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Enviar Mensaje</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Mi Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Ifled</h3>
+                    <p>Perfumes importados exclusivos para personas exigentes.</p>
+                </div>
+                <div class="footer-section footer-links">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="#home" style="color: #fff;">Inicio</a></li>
+                        <li><a href="#productos" style="color: #fff;">Productos</a></li>
+                        <li><a href="#contacto" style="color: #fff;">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section footer-contact">
+                    <h3>Contacto</h3>
+                    <p>Email: joacollambi1801@gmail.com</p>
+                    <p>Teléfono: 2615099682</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/llambi_joaquin/" target="_blank" class="social-link">
+                            <span class="social-icon"><img src="Imagenes/instagram_32x32.png" alt="Instagram"></span> Instagram
+                        </a>
+                        <a href="https://www.twitter.com/joacollambi" target="_blank" class="social-link">
+                            <span class="social-icon"><img src="Imagenes/twitter_32x32.png" alt="Twitter"></span> Twitter
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ifled Joaquin Llambi. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de producto -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeProductModal()">&times;</span>
+            <div class="modal-body" id="modalBody">
+                <!-- Contenido del producto se carga dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de pago -->
+    <div class="checkout-page" id="checkoutPage">
+        <div class="container">
+            <h2>Finalizar Compra</h2>
+            <div class="checkout-content">
+                <div class="order-summary">
+                    <h3>Resumen del Pedido</h3>
+                    <div id="checkoutItems"></div>
+                    <div class="checkout-total" id="checkoutTotal"></div>
+                </div>
+                <div class="payment-form">
+                    <h3>Información de Pago</h3>
+                    <form id="paymentForm">
+                        <div class="form-group">
+                            <input type="text" id="fullName" placeholder="Nombre completo" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="emailPay" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" placeholder="Teléfono" required>
+                        </div>
+                        <div class="payment-methods">
+                            <h4>Método de Pago</h4>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="transfer" checked>
+                                <span>Transferencia Bancaria</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="card">
+                                <span>Tarjeta de Crédito/Débito</span>
+                            </label>
+                        </div>
+                        <div class="card-details" id="cardDetails" style="display: none;">
+                            <div class="form-group">
+                                <input type="text" id="cardNumber" placeholder="Número de tarjeta">
+                            </div>
+                            <div class="form-row">
+                                <input type="text" id="expiry" placeholder="MM/AA">
+                                <input type="text" id="cvv" placeholder="CVV">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">Confirmar Pedido</button>
+                        <button type="button" class="btn-secondary" onclick="backToCart()">Volver al Carrito</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="clima-recomendacion"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

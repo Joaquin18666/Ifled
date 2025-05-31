@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "titulo": "Tom Ford Black Orchid",
+    "descripcion": "Una fragancia aromática y amaderada que combina notas de trufa negra, ylang ylang. Perfecta para el hombre moderno y sofisticado.",
+    "precio": 330000,
+    "genero": "Hombre",
+    "imagen": "producto1.jpg",
+    "oferta": true
+  },
+  {
+    "id": 2,
+    "titulo": "Sauvage Dior",
+    "descripcion": "Fragancia masculina intensa con bergamota de Calabria, pimienta de Sichuan y ambroxan. Una composición radical y magnética.",
+    "precio": 180000,
+    "genero": "Hombre",
+    "imagen": "producto2.jpg",
+    "oferta": false
+  },
+  {
+    "id": 3,
+    "titulo": "Acqua di Gio Profumo",
+    "descripcion": "Interpretación intensa y sofisticada del icónico Acqua di Gio. Notas marinas con incienso y pachulí para un aroma profundo y masculino.",
+    "precio": 160000,
+    "genero": "Hombre",
+    "imagen": "AcquadiGio.jpg",
+    "oferta": true
+  },
+  {
+    "id": 4,
+    "titulo": "Miss Dior",
+    "descripcion": "Fragancia floral y elegante con notas de rosa de Grasse, peonía y lirio de los valles. La esencia de la feminidad parisina.",
+    "precio": 138000,
+    "genero": "Mujer",
+    "imagen": "MissDior.jpg",
+    "oferta": false
+  },
+  {
+    "id": 5,
+    "titulo": "Chanel No. 5",
+    "descripcion": "El perfume más icónico del mundo. Bouquet floral aldeído con notas de ylang-ylang, rosa, lirio de los valles y sándalo.",
+    "precio": 165000,
+    "genero": "Mujer",
+    "imagen": "producto5.jpg",
+    "oferta": true
+  },
+  {
+    "id": 6,
+    "titulo": "Givenchy Irresistible",
+    "descripcion": "Fragancia adictiva y seductora con café negro, vainilla blanca y flor de naranjo. Para la mujer que vive la noche intensamente.",
+    "precio": 130000,
+    "genero": "Mujer",
+    "imagen": "Givenchy.jpg",
+    "oferta": false
+  },
+  {
+    "id": 7,
+    "titulo": "YSL Myself",
+    "descripcion": "Fragancia unisex exótica y lujosa de vanilla bourbon, ámbar, pachulí, amaderada y floral. Una experiencia olfativa única y sofisticada.",
+    "precio": 160000,
+    "genero": "Unisex",
+    "imagen": "156957-a-myslf-le-parfum-100ml.jpg",
+    "oferta": true
+  },
+  {
+    "id": 8,
+    "titulo": "Maison Margiela REPLICA",
+    "descripcion": "Fragancia unisex que evoca la calidez de una chimenea con notas de castañas, vainilla y humo de madera.",
+    "precio": 140000,
+    "genero": "Unisex",
+    "imagen": "MaisonMargiela.jpg",
+    "oferta": false
+  }
+]
