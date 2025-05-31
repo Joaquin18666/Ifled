@@ -5,7 +5,7 @@
     "descripcion": "Una fragancia aromática y amaderada que combina notas de trufa negra, ylang ylang. Perfecta para el hombre moderno y sofisticado.",
     "precio": 330000,
     "genero": "Hombre",
-    "imagen": "producto1.jpg",
+    "imagen": "Tom-Ford-Black-Orchid.jpg",
     "oferta": true
   },
   {
@@ -14,7 +14,7 @@
     "descripcion": "Fragancia masculina intensa con bergamota de Calabria, pimienta de Sichuan y ambroxan. Una composición radical y magnética.",
     "precio": 180000,
     "genero": "Hombre",
-    "imagen": "producto2.jpg",
+    "imagen": "SauvageDior.jpg",
     "oferta": false
   },
   {
@@ -41,7 +41,7 @@
     "descripcion": "El perfume más icónico del mundo. Bouquet floral aldeído con notas de ylang-ylang, rosa, lirio de los valles y sándalo.",
     "precio": 165000,
     "genero": "Mujer",
-    "imagen": "producto5.jpg",
+    "imagen": "ChanelNo5.jpg",
     "oferta": true
   },
   {
@@ -59,7 +59,7 @@
     "descripcion": "Fragancia unisex exótica y lujosa de vanilla bourbon, ámbar, pachulí, amaderada y floral. Una experiencia olfativa única y sofisticada.",
     "precio": 160000,
     "genero": "Unisex",
-    "imagen": "156957-a-myslf-le-parfum-100ml.jpg",
+    "imagen": "YSLMyself.jpg",
     "oferta": true
   },
   {
