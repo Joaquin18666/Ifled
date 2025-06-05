@@ -70,5 +70,14 @@
     "genero": "Unisex",
     "imagen": "MaisonMargiela.jpg",
     "oferta": false
+  },
+  {
+    "id": 9,
+    "titulo": "8 88 Comme des Garçons",
+    "descripcion": "Fragancia que destacan por la cúrcuma, sus notas cardiacas son de incienso y geranio.",
+    "precio": 165000,
+    "genero": "Unisex",
+    "imagen": "8_88_comme_des_garçons.jpg",
+    "oferta": false
   }
 ]
