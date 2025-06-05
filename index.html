@@ -28,7 +28,7 @@
                 
                 <!-- Carrito -->
                 <div class="cart-container">
-                    <button class="cart-btn" onclick="toggleCart()">
+                    <button class="cart-btn" onclick="alternarCarrito()">
                         <span class="cart-icon"><img src="Imagenes/shopping-cart.png" alt="Carrito"></span>
                         <span class="cart-count" id="cartCount">0</span>
                     </button>
@@ -41,15 +41,15 @@
     <div class="cart-dropdown" id="cartDropdown">
         <div class="cart-header">
             <h3>Carrito de Compras</h3>
-            <button class="close-cart" onclick="toggleCart()">×</button>
+            <button class="close-cart" onclick="alternarCarrito()">×</button>
         </div>
         <div class="cart-items" id="cartItems">
             <p class="empty-cart">Tu carrito está vacío</p>
         </div>
         <div class="cart-footer">
             <div class="cart-total" id="cartTotal">Total: $0</div>
-            <button class="btn-secondary" onclick="clearCart()">Vaciar Carrito</button>
-            <button class="btn-primary" onclick="goToCheckout()">Pagar</button>
+            <button class="btn-secondary" onclick="vaciarCarritoCompras()">Vaciar Carrito</button>
+            <button class="btn-primary" onclick="finalizarCompra()">Pagar</button>
         </div>
     </div>
 
@@ -60,7 +60,7 @@
         <div class="hero-content">
             <h1 class="hero-title">Perfumes Importados Exclusivos</h1>
             <p class="hero-subtitle">Descubre fragancias únicas que definen tu personalidad</p>
-            <button class="btn-primary" onclick="scrollToProducts()">Explorar Colección</button>
+            <button class="btn-primary" onclick="irAProductos()">Explorar Colección</button>
         </div>
     </section>
 
@@ -155,7 +155,7 @@
     <!-- Modal de producto -->
     <div class="modal" id="productModal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeProductModal()">&times;</span>
+            <span class="close-modal" onclick="cerrarDetallePerfume()">&times;</span>
             <div class="modal-body" id="modalBody">
                 <!-- Contenido del producto se carga dinámicamente -->
             </div>

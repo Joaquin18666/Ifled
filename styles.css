@@ -304,6 +304,17 @@ body {
     z-index: 2;
 }
 
+.offer-badge {
+    display: inline-block;
+    background: #ffbf00;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 0.2em 0.7em;
+    margin-top: 0.5em;
+    font-size: 0.95em;
+}
+
 /* Imagenes de los productos */
 .product-image {
     width: 100%;

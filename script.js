@@ -1,59 +1,67 @@
 // Variables globales
-let productos = [];
-let carrito = [];
-let filtroActual = 'todos';
+let listaPerfumes = [];
+let carritoCompras = [];
+let filtroSeleccionado = 'todos';
 
 // Inicialización
 document.addEventListener('DOMContentLoaded', function() {
-    cargarProductos();
+    cargarPerfumes();
     inicializarEventos();
-    actualizarContadorCarrito();
+    actualizarContadorCarritoCompras();
 });
 
 
-async function cargarProductos() {
+async function cargarPerfumes() {
     try {
-        const response = await fetch('productos.json');
-        productos = await response.json();
-        mostrarProductos(productos);
+        const respuesta = await fetch('productos.json');
+        listaPerfumes = await respuesta.json();
+        mostrarPerfumes(listaPerfumes);
     } catch (error) {
-        console.error('Error al cargar productos:', error);
         document.getElementById('productsGrid').innerHTML = 
             '<p class="text-center">Error al cargar los productos. Por favor, recarga la página.</p>';
     }
 }
 
 // Mostrar productos en el grid
-function mostrarProductos(productosAMostrar) {
+function mostrarPerfumes(perfumesAMostrar) {
     const grid = document.getElementById('productsGrid');
     
-    if (productosAMostrar.length === 0) {
+    if (perfumesAMostrar.length === 0) {
         grid.innerHTML = '<p class="text-center">No se encontraron productos.</p>';
         return;
     }
     
-    grid.innerHTML = productosAMostrar.map(producto => `
-        <div class="product-card ${producto.oferta ? 'offer' : ''}" onclick="abrirProducto(${producto.id})">
-            <img src="Imagenes/${producto.imagen}" alt="${producto.titulo}" class="product-image">
-            <div class="product-info">
-                <h3 class="product-title">${producto.titulo}</h3>
-                <p class="product-description">${producto.descripcion}</p>
-                <div class="product-price">
-                    ${producto.oferta 
-                        ? `<span class="old-price">$${Math.round(producto.precio * 1.2).toLocaleString()}</span> 
-                           <span class="new-price">$${producto.precio.toLocaleString()}</span>`
-                        : `$${producto.precio.toLocaleString()}`
-                    }
+    grid.innerHTML = perfumesAMostrar.map(perfume => {
+        let porcentajeOferta = '';
+        if (perfume.oferta) {
+            const precioAnterior = perfume.precio * 1.2;
+            const descuento = Math.round(100 - (perfume.precio / precioAnterior) * 100);
+            porcentajeOferta = `<div class="offer-badge">¡${descuento}% OFF!</div>`;
+        }
+        return `
+            <div class="product-card ${perfume.oferta ? 'offer' : ''}" onclick="abrirDetallePerfume(${perfume.id})">
+                <img src="Imagenes/${perfume.imagen}" alt="${perfume.titulo}" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">${perfume.titulo}</h3>
+                    <p class="product-description">${perfume.descripcion}</p>
+                    <div class="product-price">
+                        ${perfume.oferta 
+                            ? `<span class="old-price">$${Math.round(perfume.precio * 1.2).toLocaleString()}</span> 
+                               <span class="new-price">$${perfume.precio.toLocaleString()}</span>`
+                            : `$${perfume.precio.toLocaleString()}`
+                        }
+                    </div>
+                    <span class="product-gender">${perfume.genero}</span>
+                    ${porcentajeOferta}
                 </div>
-                <span class="product-gender">${producto.genero}</span>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 // filtrar productos por género
-function filtrarProductos(genero) {
-    filtroActual = genero;
+function filtrarPerfumes(genero) {
+    filtroSeleccionado = genero;
     
     // Actualizar botones activos
     document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -62,39 +70,52 @@ function filtrarProductos(genero) {
     document.querySelector(`[data-filter="${genero}"]`).classList.add('active');
     
     // Filtrar y mostrar
-    const productosFiltrados = genero === 'todos' 
-        ? productos 
-        : productos.filter(p => p.genero === genero);
+    const perfumesFiltrados = genero === 'todos' 
+        ? listaPerfumes 
+        : listaPerfumes.filter(p => p.genero === genero);
     
-    mostrarProductos(productosFiltrados);
+    mostrarPerfumes(perfumesFiltrados);
 }
 
 // Abrir modal de producto
-function abrirProducto(id) {
-    const producto = productos.find(p => p.id === id);
-    if (!producto) return;
+function abrirDetallePerfume(id) {
+    const perfume = listaPerfumes.find(p => p.id === id);
+    if (!perfume) return;
     
     const modal = document.getElementById('productModal');
     const modalBody = document.getElementById('modalBody');
     
+    let porcentajeOferta = '';
+    if (perfume.oferta) {
+        const precioAnterior = perfume.precio * 1.2;
+        const descuento = Math.round(100 - (perfume.precio / precioAnterior) * 100);
+        porcentajeOferta = `<div class="offer-badge">¡${descuento}% OFF!</div>`;
+    }
+
     modalBody.innerHTML = `
         <div class="product-detail">
             <div class="product-images-grid">
                 <div class="product-images-row">
-                    <img src="Imagenes/${producto.imagen.replace('.jpg', '-2.jpg')}" alt="${producto.titulo}">
-                    <img src="Imagenes/${producto.imagen.replace('.jpg', '-3.jpg')}" alt="${producto.titulo}">
+                    <img src="Imagenes/${perfume.imagen.replace('.jpg', '-2.jpg')}" alt="${perfume.titulo}">
+                    <img src="Imagenes/${perfume.imagen.replace('.jpg', '-3.jpg')}" alt="${perfume.titulo}">
                 </div>
                 <div class="product-images-row product-images-row-bottom">
-                    <img src="Imagenes/${producto.imagen}" alt="${producto.titulo}">
+                    <img src="Imagenes/${perfume.imagen}" alt="${perfume.titulo}">
                 </div>
             </div>
             <div class="product-detail-info">
-                <h2>${producto.titulo}</h2>
-                <p class="product-description">${producto.descripcion}</p>
-                <div class="product-price">$${producto.precio.toLocaleString()}</div>
-                <span class="product-gender">${producto.genero}</span>
-                ${producto.oferta ? '<div class="offer-badge">¡En Oferta!</div>' : ''}
-                <button class="btn-primary add-to-cart-btn" onclick="agregarAlCarrito(${producto.id})">
+                <h2>${perfume.titulo}</h2>
+                <p class="product-description">${perfume.descripcion}</p>
+                <div class="product-price">
+                    ${perfume.oferta 
+                        ? `<span class="old-price">$${Math.round(perfume.precio * 1.2).toLocaleString()}</span> 
+                           <span class="new-price">$${perfume.precio.toLocaleString()}</span>`
+                        : `$${perfume.precio.toLocaleString()}`
+                    }
+                </div>
+                <span class="product-gender">${perfume.genero}</span>
+                ${porcentajeOferta}
+                <button class="btn-primary add-to-cart-btn" onclick="agregarAlCarritoCompras(${perfume.id})">
                     Agregar al Carrito
                 </button>
             </div>
@@ -105,54 +126,54 @@ function abrirProducto(id) {
 }
 
 // Cerrar modal de producto
-function closeProductModal() {
+function cerrarDetallePerfume() {
     document.getElementById('productModal').classList.remove('active');
 }
 
 // Función para agregar producto al carrito
-function agregarAlCarrito(id) {
-    const producto = productos.find(p => p.id === id);
-    if (!producto) return;
+function agregarAlCarritoCompras(id) {
+    const perfume = listaPerfumes.find(p => p.id === id);
+    if (!perfume) return;
     
-    const itemExistente = carrito.find(item => item.id === id);
+    const itemExistente = carritoCompras.find(item => item.id === id);
     
     if (itemExistente) {
         itemExistente.cantidad++;
     } else {
-        carrito.push({
-            ...producto,
+        carritoCompras.push({
+            ...perfume,
             cantidad: 1
         });
     }
     
-    actualizarCarrito();
-    closeProductModal();
+    actualizarCarritoCompras();
+    cerrarDetallePerfume();
     
     // Mostrar feedback visual
-    mostrarNotificacion('Producto agregado al carrito');
+    mostrarAviso('Producto agregado al carrito');
 }
 
-function actualizarCarrito() {
-    actualizarContadorCarrito();
-    mostrarItemsCarrito();
-    calcularTotal();
+function actualizarCarritoCompras() {
+    actualizarContadorCarritoCompras();
+    mostrarItemsCarritoCompras();
+    calcularTotalCarrito();
 }
 
-function actualizarContadorCarrito() {
+function actualizarContadorCarritoCompras() {
     const contador = document.getElementById('cartCount');
-    const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+    const totalItems = carritoCompras.reduce((sum, item) => sum + item.cantidad, 0);
     contador.textContent = totalItems;
 }
 
-function mostrarItemsCarrito() {
+function mostrarItemsCarritoCompras() {
     const cartItems = document.getElementById('cartItems');
     
-    if (carrito.length === 0) {
+    if (carritoCompras.length === 0) {
         cartItems.innerHTML = '<p class="empty-cart">Tu carrito está vacío</p>';
         return;
     }
     
-    cartItems.innerHTML = carrito.map(item => `
+    cartItems.innerHTML = carritoCompras.map(item => `
         <div class="cart-item">
             <div>
                 <h4>${item.titulo}</h4>
@@ -160,42 +181,42 @@ function mostrarItemsCarrito() {
             </div>
             <div>
                 <p>$${(item.precio * item.cantidad).toLocaleString()}</p>
-                <button onclick="eliminarDelCarrito(${item.id})" style="background: none; border: none; color: red; cursor: pointer;">×</button>
+                <button onclick="eliminarDelCarritoCompras(${item.id})" style="background: none; border: none; color: red; cursor: pointer;">×</button>
             </div>
         </div>
     `).join('');
 }
 
-function calcularTotal() {
-    const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+function calcularTotalCarrito() {
+    const total = carritoCompras.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
     document.getElementById('cartTotal').textContent = `Total: $${total.toLocaleString()}`;
 }
 
-function eliminarDelCarrito(id) {
-    carrito = carrito.filter(item => item.id !== id);
-    actualizarCarrito();
+function eliminarDelCarritoCompras(id) {
+    carritoCompras = carritoCompras.filter(item => item.id !== id);
+    actualizarCarritoCompras();
 }
 
-function clearCart() {
-    carrito = [];
-    actualizarCarrito();
-    mostrarNotificacion('Carrito vaciado');
+function vaciarCarritoCompras() {
+    carritoCompras = [];
+    actualizarCarritoCompras();
+    mostrarAviso('Carrito vaciado');
 }
 
-function toggleCart() {
+function alternarCarrito() {
     const dropdown = document.getElementById('cartDropdown');
     dropdown.classList.toggle('active');
 }
 
 // Checkout
-function goToCheckout() {
+function finalizarCompra() {
     // Oculta el carrito
     document.getElementById('cartDropdown').classList.remove('active');
     // Muestra mensaje de compra exitosa
-    mostrarNotificacion('¡Gracias por tu compra! Se ha realizado de manera exitosa');
+    mostrarAviso('¡Gracias por tu compra! Se ha realizado de manera exitosa');
     // Vacía el carrito después de mostrar el mensaje
-    carrito = [];
-    actualizarCarrito();
+    carritoCompras = [];
+    actualizarCarritoCompras();
 }
 
 // Eventos
@@ -203,7 +224,7 @@ function inicializarEventos() {
     // Filtros de productos
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            filtrarProductos(btn.dataset.filter);
+            filtrarPerfumes(btn.dataset.filter);
         });
     });
 
@@ -211,30 +232,30 @@ function inicializarEventos() {
     document.getElementById('contactForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
+        const nombre = document.getElementById('name').value;
+        const correo = document.getElementById('email').value;
+        const mensaje = document.getElementById('message').value;
 
         // Validaciones básicas
-        if (!name || !email || !message) {
-            mostrarNotificacion('Por favor, completa todos los campos');
+        if (!nombre || !correo || !mensaje) {
+            mostrarAviso('Por favor, completa todos los campos');
             return;
         }
 
-        if (!validarEmail(email)) {
-            mostrarNotificacion('Por favor, ingresa un email válido');
+        if (!validarEmail(correo)) {
+            mostrarAviso('Por favor, ingresa un email válido');
             return;
         }
 
         // Simular envío
-        mostrarNotificacion('Mensaje enviado correctamente. Te contactaremos pronto.');
+        mostrarAviso('Mensaje enviado correctamente. Te contactaremos pronto.');
         this.reset();
     });
 
     // Cerrar modal al hacer clic fuera
     document.getElementById('productModal').addEventListener('click', function(e) {
         if (e.target === this) {
-            closeProductModal();
+            cerrarDetallePerfume();
         }
     });
 
@@ -248,17 +269,17 @@ function inicializarEventos() {
         }
     });
 
-    navigator.geolocation.getCurrentPosition(function(position) {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        obtenerClima(lat, lon);
+    navigator.geolocation.getCurrentPosition(function(posicion) {
+        const lat = posicion.coords.latitude;
+        const lon = posicion.coords.longitude;
+        mostrarClimaYRecomendacion(lat, lon);
     }, function() {
         // Si el usuario no permite, usa una ciudad por defecto (Por ejemplio Mendoza)
-        obtenerClima(-32.89, -68.83);
+        mostrarClimaYRecomendacion(-32.89, -68.83);
     });
 }
 
-function obtenerClima(lat, lon) {
+function mostrarClimaYRecomendacion(lat, lon) {
     fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
         .then(res => res.json())
         .then(data => {
@@ -282,10 +303,10 @@ function validarEmail(email) {
     return regex.test(email);
 }
 
-function mostrarNotificacion(mensaje) {
+function mostrarAviso(mensaje) {
     // Crear notificación temporal
-    const notificacion = document.createElement('div');
-    notificacion.style.cssText = `
+    const aviso = document.createElement('div');
+    aviso.style.cssText = `
         position: fixed;
         top: 100px;
         right: 20px;
@@ -296,22 +317,22 @@ function mostrarNotificacion(mensaje) {
         z-index: 3000;
         animation: slideIn 0.3s ease-out;
     `;
-    notificacion.textContent = mensaje;
+    aviso.textContent = mensaje;
     
-    document.body.appendChild(notificacion);
+    document.body.appendChild(aviso);
     
     setTimeout(() => {
-        notificacion.remove();
+        aviso.remove();
     }, 3000);
 }
 
-function scrollToProducts() {
+function irAProductos() {
     document.getElementById('productos').scrollIntoView({ 
         behavior: 'smooth' 
     });
 }
 
-function scrollToTop() {
+function irArriba() {
     window.scrollTo({ 
         top: 0, 
         behavior: 'smooth' 
@@ -319,12 +340,12 @@ function scrollToTop() {
 }
 
 // Navegación para enlaces internos
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+document.querySelectorAll('a[href^="#"]').forEach(enlace => {
+    enlace.addEventListener('click', function (e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
+        const destino = document.querySelector(this.getAttribute('href'));
+        if (destino) {
+            destino.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
             });
@@ -334,12 +355,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Cerrar modal al presionar Escape
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
-        closeProductModal();
-    }
-});
-// Cerrar carrito al presionar Escape
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
+        cerrarDetallePerfume();
         const cartDropdown = document.getElementById('cartDropdown');
         if (cartDropdown.classList.contains('active')) {
             cartDropdown.classList.remove('active');
