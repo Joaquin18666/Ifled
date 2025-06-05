@@ -544,71 +544,6 @@ body {
     margin-top: 2rem;
 }
 
-/* Checkout */
-.checkout-page {
-    display: none;
-    padding: 6rem 0 3rem;
-    min-height: 100vh;
-}
-
-.checkout-page.active {
-    display: block;
-}
-
-.checkout-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-}
-
-.order-summary {
-    background: var(--light-gray);
-    padding: 2rem;
-    border-radius: 15px;
-}
-
-.checkout-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 0;
-    border-bottom: 1px solid #ddd;
-}
-
-.checkout-total {
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 2px solid var(--primary-blue);
-}
-
-.payment-methods {
-    margin: 1.5rem 0;
-}
-
-.payment-option {
-    display: block;
-    margin: 0.5rem 0;
-    cursor: pointer;
-}
-
-.payment-option input {
-    margin-right: 0.5rem;
-}
-
-.card-details {
-    background: var(--light-gray);
-    padding: 1rem;
-    border-radius: 10px;
-    margin-top: 1rem;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-
 /* Diseño responsive */
 @media (max-width: 768px) {
     .nav {
@@ -698,4 +633,16 @@ body {
 
 .mb-2 {
     margin-bottom: 1rem;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #888;
+    margin-right: 0.5rem;
+    font-size: 1rem;
+}
+.new-price {
+    color: #1e3a8a;
+    font-weight: bold;
+    font-size: 1.2rem;
 }

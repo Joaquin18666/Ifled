@@ -38,7 +38,13 @@ function mostrarProductos(productosAMostrar) {
             <div class="product-info">
                 <h3 class="product-title">${producto.titulo}</h3>
                 <p class="product-description">${producto.descripcion}</p>
-                <div class="product-price">$${producto.precio.toLocaleString()}</div>
+                <div class="product-price">
+                    ${producto.oferta 
+                        ? `<span class="old-price">$${Math.round(producto.precio * 1.2).toLocaleString()}</span> 
+                           <span class="new-price">$${producto.precio.toLocaleString()}</span>`
+                        : `$${producto.precio.toLocaleString()}`
+                    }
+                </div>
                 <span class="product-gender">${producto.genero}</span>
             </div>
         </div>
