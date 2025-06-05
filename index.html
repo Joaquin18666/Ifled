@@ -54,7 +54,6 @@
     </div>
 
     <!-- Hero Section -->
-    <!--Mi imagen de fondo con el proposito de agrandar mi pagina-->
          <img src="Imagenes/Imagen_fondo.png" alt="Fondo Hero" class="hero-bg">
     <section class="hero" id="home">
         <div class="hero-content">
@@ -157,13 +156,18 @@
         <div class="modal-content">
             <span class="close-modal" onclick="cerrarDetallePerfume()">&times;</span>
             <div class="modal-body" id="modalBody">
-                <!-- Contenido del producto se carga dinámicamente -->
             </div>
         </div>
     </div>
 
     <div id="clima-recomendacion"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+      (function(){
+        emailjs.init("FtqjNG1gk_cSF4Kh1"); 
+      })();
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

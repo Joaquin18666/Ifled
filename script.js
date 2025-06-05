@@ -236,7 +236,6 @@ function inicializarEventos() {
         const correo = document.getElementById('email').value;
         const mensaje = document.getElementById('message').value;
 
-        // Validaciones básicas
         if (!nombre || !correo || !mensaje) {
             mostrarAviso('Por favor, completa todos los campos');
             return;
@@ -247,9 +246,18 @@ function inicializarEventos() {
             return;
         }
 
-        // Simular envío
-        mostrarAviso('Mensaje enviado correctamente. Te contactaremos pronto.');
-        this.reset();
+        // ENVÍO CON EMAILJS
+        emailjs.send("service_tcx8fyl", "template_s1qx6pu", {
+            name: nombre,
+            title: "Contacto desde la web",
+            email: correo
+        })
+        .then(function(response) {
+            mostrarAviso('Mensaje enviado correctamente. Te contactaremos pronto.');
+            document.getElementById('contactForm').reset();
+        }, function(error) {
+            mostrarAviso('Error al enviar el mensaje. Intenta más tarde.');
+        });
     });
 
     // Cerrar modal al hacer clic fuera
@@ -315,7 +323,7 @@ function mostrarAviso(mensaje) {
         padding: 1rem 2rem;
         border-radius: 10px;
         z-index: 3000;
-        animation: slideIn 0.3s ease-out;
+        animation: slideIn 0.35s ease-out;
     `;
     aviso.textContent = mensaje;
     
