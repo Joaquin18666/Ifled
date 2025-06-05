@@ -10,14 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     actualizarContadorCarrito();
 });
 
-// CARGAR PRODUCTOS DESDE JSON
-/* 
-INSTRUCCIONES PARA MODIFICAR PRODUCTOS:
-1. Editar el archivo "productos.json" en la raíz del proyecto
-2. Cada producto debe tener: id, titulo, descripcion, precio, genero, imagen, oferta
-3. Las imágenes van en carpeta "images/products/"
-4. Para agregar más productos, simplemente añadir objetos al array en productos.json
-*/
+
 async function cargarProductos() {
     try {
         const response = await fetch('productos.json');
@@ -191,30 +184,12 @@ function toggleCart() {
 // Checkout
 function goToCheckout() {
     // Oculta el carrito
-    document.getElementById('cartDropdown').style.display = 'none';
-    // Muestra la página de pago
-    document.getElementById('checkoutPage').style.display = 'block';
-    // Opcional: puedes ocultar otras secciones si lo deseas
-}
-
-function mostrarResumenCheckout() {
-    const checkoutItems = document.getElementById('checkoutItems');
-    const checkoutTotal = document.getElementById('checkoutTotal');
-    
-    checkoutItems.innerHTML = carrito.map(item => `
-        <div class="checkout-item">
-            <span>${item.titulo} x${item.cantidad}</span>
-            <span>$${(item.precio * item.cantidad).toLocaleString()}</span>
-        </div>
-    `).join('');
-    
-    const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-    checkoutTotal.textContent = `Total: $${total.toLocaleString()}`;
-}
-
-function backToCart() {
-    document.getElementById('checkoutPage').classList.remove('active');
-    document.body.style.overflow = 'auto';
+    document.getElementById('cartDropdown').classList.remove('active');
+    // Muestra mensaje de compra exitosa
+    mostrarNotificacion('¡Gracias por tu compra! Se ha realizado de manera exitosa');
+    // Vacía el carrito después de mostrar el mensaje
+    carrito = [];
+    actualizarCarrito();
 }
 
 // Eventos
@@ -225,110 +200,54 @@ function inicializarEventos() {
             filtrarProductos(btn.dataset.filter);
         });
     });
-    
+
     // Formulario de contacto
     document.getElementById('contactForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const message = document.getElementById('message').value;
-        
+
         // Validaciones básicas
         if (!name || !email || !message) {
             mostrarNotificacion('Por favor, completa todos los campos');
             return;
         }
-        
+
         if (!validarEmail(email)) {
             mostrarNotificacion('Por favor, ingresa un email válido');
             return;
         }
-        
+
         // Simular envío
         mostrarNotificacion('Mensaje enviado correctamente. Te contactaremos pronto.');
         this.reset();
     });
-    
-    // Formulario de pago
-    document.getElementById('paymentForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const fullName = document.getElementById('fullName').value;
-        const email = document.getElementById('emailPay').value;
-        const phone = document.getElementById('phone').value;
-        const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
-        
-        // Validaciones
-        if (!fullName || !email || !phone) {
-            mostrarNotificacion('Por favor, completa todos los campos obligatorios');
-            return;
-        }
-        
-        if (!validarEmail(email)) {
-            mostrarNotificacion('Por favor, ingresa un email válido');
-            return;
-        }
-        
-        // Validar tarjeta si es necesario
-        if (paymentMethod === 'card') {
-            const cardNumber = document.getElementById('cardNumber').value;
-            const expiry = document.getElementById('expiry').value;
-            const cvv = document.getElementById('cvv').value;
-            
-            if (!cardNumber || !expiry || !cvv) {
-                mostrarNotificacion('Por favor, completa los datos de la tarjeta');
-                return;
-            }
-        }
-        
-        // Simular procesamiento de pago
-        mostrarNotificacion('¡Pedido confirmado! Te enviaremos los detalles por email.');
-        
-        // Limpiar carrito y volver al inicio
-        setTimeout(() => {
-            carrito = [];
-            actualizarCarrito();
-            backToCart();
-            scrollToTop();
-        }, 2000);
-    });
-    
-    // Mostrar/ocultar campos de tarjeta
-    document.querySelectorAll('input[name="payment"]').forEach(radio => {
-        radio.addEventListener('change', function() {
-            const cardDetails = document.getElementById('cardDetails');
-            if (this.value === 'card') {
-                cardDetails.style.display = 'block';
-            } else {
-                cardDetails.style.display = 'none';
-            }
-        });
-    });
-    
+
     // Cerrar modal al hacer clic fuera
     document.getElementById('productModal').addEventListener('click', function(e) {
         if (e.target === this) {
             closeProductModal();
         }
     });
-    
+
     // Cerrar carrito al hacer clic fuera
     document.addEventListener('click', function(e) {
         const cartDropdown = document.getElementById('cartDropdown');
         const cartBtn = document.querySelector('.cart-btn');
-        
+
         if (!cartDropdown.contains(e.target) && !cartBtn.contains(e.target)) {
             cartDropdown.classList.remove('active');
         }
     });
-    
+
     navigator.geolocation.getCurrentPosition(function(position) {
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
         obtenerClima(lat, lon);
     }, function() {
-        // Si el usuario no permite, usa una ciudad por defecto (ej: Mendoza)
+        // Si el usuario no permite, usa una ciudad por defecto (Por ejemplio Mendoza)
         obtenerClima(-32.89, -68.83);
     });
 }
