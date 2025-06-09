@@ -282,8 +282,8 @@ function inicializarEventos() {
         const lon = posicion.coords.longitude;
         mostrarClimaYRecomendacion(lat, lon);
     }, function() {
-        // Si el usuario no permite, usa una ciudad por defecto (Por ejemplio Mendoza)
-        mostrarClimaYRecomendacion(-32.89, -68.83);
+        // Si el usuario no permite, usa una ciudad por defecto (Ciudad de Buenos Aires)
+        mostrarClimaYRecomendacion(-34.61, -58.38);
     });
 }
 
@@ -307,8 +307,8 @@ function mostrarClimaYRecomendacion(lat, lon) {
 
 // Utilidades
 function validarEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+    // Vi una regex más compleja en internet pero preferí dejarlo simple
+    return email.includes('@') && email.includes('.');
 }
 
 function mostrarAviso(mensaje) {
@@ -335,14 +335,8 @@ function mostrarAviso(mensaje) {
 }
 
 function irAProductos() {
+    // Scroll suave: me inspiré en parte en un tutorial de MDN para esto
     document.getElementById('productos').scrollIntoView({ 
-        behavior: 'smooth' 
-    });
-}
-
-function irArriba() {
-    window.scrollTo({ 
-        top: 0, 
         behavior: 'smooth' 
     });
 }
