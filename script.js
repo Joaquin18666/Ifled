@@ -34,9 +34,7 @@ function mostrarPerfumes(perfumesAMostrar) {
     grid.innerHTML = perfumesAMostrar.map(perfume => {
         let porcentajeOferta = '';
         if (perfume.oferta) {
-            const precioAnterior = perfume.precio * 1.2;
-            const descuento = Math.round(100 - (perfume.precio / precioAnterior) * 100);
-            porcentajeOferta = `<div class="offer-badge">¡${descuento}% OFF!</div>`;
+            porcentajeOferta = `<span class="offer-badge">20% OFF</span>`;
         }
         return `
             <div class="product-card ${perfume.oferta ? 'offer' : ''}" onclick="abrirDetallePerfume(${perfume.id})">
@@ -45,8 +43,9 @@ function mostrarPerfumes(perfumesAMostrar) {
                     <h3 class="product-title">${perfume.titulo}</h3>
                     <p class="product-description">${perfume.descripcion}</p>
                     <div class="product-price">
-                        ${perfume.oferta 
-                            ? `<span class="old-price">$${Math.round(perfume.precio * 1.2).toLocaleString()}</span> 
+                        ${
+                            perfume.oferta
+                            ? `<span class="old-price">$${Math.round(perfume.precio * 1.25).toLocaleString()}</span>
                                <span class="new-price">$${perfume.precio.toLocaleString()}</span>`
                             : `$${perfume.precio.toLocaleString()}`
                         }
@@ -87,9 +86,7 @@ function abrirDetallePerfume(id) {
     
     let porcentajeOferta = '';
     if (perfume.oferta) {
-        const precioAnterior = perfume.precio * 1.2;
-        const descuento = Math.round(100 - (perfume.precio / precioAnterior) * 100);
-        porcentajeOferta = `<div class="offer-badge">¡${descuento}% OFF!</div>`;
+        porcentajeOferta = `<span class="offer-badge">20% OFF</span>`;
     }
 
     modalBody.innerHTML = `
@@ -107,8 +104,9 @@ function abrirDetallePerfume(id) {
                 <h2>${perfume.titulo}</h2>
                 <p class="product-description">${perfume.descripcion}</p>
                 <div class="product-price">
-                    ${perfume.oferta 
-                        ? `<span class="old-price">$${Math.round(perfume.precio * 1.2).toLocaleString()}</span> 
+                    ${
+                        perfume.oferta
+                        ? `<span class="old-price">$${Math.round(perfume.precio * 1.25).toLocaleString()}</span>
                            <span class="new-price">$${perfume.precio.toLocaleString()}</span>`
                         : `$${perfume.precio.toLocaleString()}`
                     }
