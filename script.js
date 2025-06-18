@@ -305,7 +305,7 @@ function mostrarClimaYRecomendacion(lat, lon) {
 
 // Utilidades
 function validarEmail(email) {
-    // Vi una regex más compleja en internet pero preferí dejarlo simple
+    // Vi una regex más compleja en internet pero preferí dejarlo simple inspirandome en W3Schools
     return email.includes('@') && email.includes('.');
 }
 

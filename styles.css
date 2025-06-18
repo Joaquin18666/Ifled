@@ -304,10 +304,11 @@ body {
     z-index: 2;
 }
 
+/* Lo saque de W3Schools */ 
 .offer-badge {
     display: inline-block;
     background: #ffbf00;
-    color: #fff;
+    color: #ffffff;
     font-weight: bold;
     border-radius: 8px;
     padding: 0.2em 0.7em;
@@ -619,6 +620,7 @@ body {
 }
 
 /* Animaciones */
+/*W3Schools*/
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -633,7 +635,7 @@ body {
     to { opacity: 1; transform: scale(1);}
 }
 
-/* UTILIDADES */
+/* Utilidades, lo saque de W3Schools */
 .text-center {
     text-align: center;
 }
