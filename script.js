@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     actualizarContadorCarritoCompras();
 });
 
-
+//Entiendo que se usaba .then() pero preferí usar async/await para mayor claridad y simplicidad, lo vi en un tutorial de JavaScript que es lo nuevo.
 async function cargarPerfumes() {
     try {
         const respuesta = await fetch('productos.json');
@@ -147,7 +147,6 @@ function agregarAlCarritoCompras(id) {
     actualizarCarritoCompras();
     cerrarDetallePerfume();
     
-    // Mostrar feedback visual
     mostrarAviso('Producto agregado al carrito');
 }
 

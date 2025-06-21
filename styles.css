@@ -157,17 +157,11 @@ body {
 }
 
 /* Hero Section */
-.hero-bg {
-    display: block;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
 
+/*Aca quite la imagen de fondo y el texto, porque no me gustaba como quedaba*/
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(30, 58, 138, 0.7), rgba(59, 130, 246, 0.7)), 
+    background: linear-gradient(rgba(30, 58, 138, 0.7), rgba(30, 58, 138, 0.7)), 
                 url('images/hero-bg.jpg') center/cover;
     display: flex;
     align-items: center;
