@@ -161,8 +161,7 @@ body {
 /*Aca quite la imagen de fondo y el texto, porque no me gustaba como quedaba*/
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(30, 58, 138, 0.7), rgba(30, 58, 138, 0.7)), 
-                url('images/hero-bg.jpg') center/cover;
+    background: var(--primary-blue); 
     display: flex;
     align-items: center;
     justify-content: center;

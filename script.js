@@ -195,6 +195,7 @@ function eliminarDelCarritoCompras(id) {
 }
 
 function vaciarCarritoCompras() {
+    if (carritoCompras.length === 0) return; // No hacer nada si está vacío
     carritoCompras = [];
     actualizarCarritoCompras();
     mostrarAviso('Carrito vaciado');
@@ -207,11 +208,9 @@ function alternarCarrito() {
 
 // Checkout
 function finalizarCompra() {
-    // Oculta el carrito
+    if (carritoCompras.length === 0) return; // No hacer nada si está vacío
     document.getElementById('cartDropdown').classList.remove('active');
-    // Muestra mensaje de compra exitosa
     mostrarAviso('¡Gracias por tu compra! Se ha realizado de manera exitosa');
-    // Vacía el carrito después de mostrar el mensaje
     carritoCompras = [];
     actualizarCarritoCompras();
 }
